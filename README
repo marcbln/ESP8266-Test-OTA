@@ -1,0 +1,5 @@
+# First Test of OverTheAir-Update of ESP8266 via Arduino IDE
+
+after initially uploaded this to the board via USB, restart Arduino and change Tools/Port to the IP of the (connected) board.
+
+
