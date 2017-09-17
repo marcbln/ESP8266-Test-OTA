@@ -5,13 +5,13 @@
 #include "credentials.h"
 
 
-// ---- wifi
+// ---- wifi credentials (see credentials.h)
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
 
 /**
-
-*/
+ *
+ */
 void setup() {
   Serial.begin(115200);
   Serial.println("Booting");
@@ -23,24 +23,26 @@ void setup() {
     ESP.restart();
   }
 
-  // Port defaults to 8266
+  // ---- Port defaults to 8266
   // ArduinoOTA.setPort(8266);
-
-  // Hostname defaults to esp8266-[ChipID]
+  // ---- Hostname defaults to esp8266-[ChipID]
   // ArduinoOTA.setHostname("myesp8266");
-
-  // No authentication by default
+  // ---- Test with a password (No authentication by default)
   // ArduinoOTA.setPassword((const char *)"123");
 
+  // ---- start callback
   ArduinoOTA.onStart([]() {
     Serial.println("Start");
   });
+  // ---- end callback
   ArduinoOTA.onEnd([]() {
     Serial.println("\nEnd");
   });
+  // ---- progress callback
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
     Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
   });
+  // ---- error callback
   ArduinoOTA.onError([](ota_error_t error) {
     Serial.printf("Error[%u]: ", error);
     if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
@@ -49,16 +51,21 @@ void setup() {
     else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
     else if (error == OTA_END_ERROR) Serial.println("End Failed");
   });
+
+  // ----
   ArduinoOTA.begin();
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 }
 
+
 /**
  * 
  */
 void loop() {
-  sleep( 1000); sleep one second
+  // sleep(1000); // sleep one second
   ArduinoOTA.handle();
 }
+
+
